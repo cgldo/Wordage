@@ -10,10 +10,26 @@ export interface ImageProps {
 
 export interface SharedModalProps {
   index: number
-  images?: ImageProps[]
-  currentPhoto?: ImageProps
+  images?: Result[]
+  currentPhoto?: Result
   changePhotoId: (newVal: number) => void
   closeModal: () => void
   navigation: boolean
   direction?: number
+}
+
+export interface Prompt {
+  noun: string
+  adjective: string
+}
+
+export interface Result {
+  statusCode?: number
+  src?: string
+  blurDataURL?: string
+  id: number
+  height?: string
+  width?: string
+  public_id?: string
+  format?: string
 }
