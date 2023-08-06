@@ -92,15 +92,13 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
     <>
       <main className="mx-auto max-w-[1960px] p-4">
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-start gap-2 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
-            <div className="flex h-60 items-center justify-center">
-              <button
-                className="pointer z-10 mt-3 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
-                onClick={handleClick}
-              >
-                Instruction
-              </button>
-            </div>
+          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
+            <button
+              className="pointer z-10 mt-3 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
+              onClick={handleClick}
+            >
+              Instruction
+            </button>
             <Logo />
             <h2 className="z-10 mb-4 mt-8 text-base font-bold uppercase tracking-widest">
               <p>{win}</p>
