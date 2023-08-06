@@ -92,7 +92,10 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
     <>
       <main className="mx-auto max-w-[1960px] p-4">
         <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-start gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
+          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
+            <div className="absolute inset-0 flex items-center justify-center opacity-20">
+              <span className="absolute bottom-0 left-0 right-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
+            </div>
             <button
               className="pointer z-10 mt-3 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
               onClick={handleClick}
@@ -100,14 +103,14 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
               Instruction
             </button>
             <Logo />
-            <h2 className="z-10 mb-4 mt-8 text-base font-bold uppercase tracking-widest">
+            <h1 className="mb-4 mt-8 text-base font-bold uppercase tracking-widest">
               <p>{win}</p>
               {prev !== "" && <p>Previous Prompt : {prev}</p>}
               <p className="text-yellow-300">Score : {score}</p>
               <p className="text-green-300">
                 {prompts[index].adjective + " " + word}
               </p>
-            </h2>
+            </h1>
             <button
               disabled={load}
               className="pointer z-10 mt-6 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
@@ -143,55 +146,10 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
                 onKeyDown={handleKeyDown}
               />
             </form>
-            {guesses.map((guess: String) => (
-              <p className="z-50 font-semibold text-white">{guess}</p>
-            ))}
-            {showModal ? (
-              <>
-                <div className="fixed inset-0 z-10 overflow-y-auto">
-                  <div
-                    className="fixed inset-0 h-full w-full bg-black opacity-40"
-                    onClick={handleClick}
-                  ></div>
-                  <div className="flex min-h-screen items-center px-4 py-8">
-                    <div className="relative mx-auto w-full max-w-lg rounded-md bg-white p-4 shadow-lg">
-                      <div className="mt-3 sm:flex">
-                        <div className="mt-2 text-center sm:ml-4 sm:text-left">
-                          <h4 className="text-center text-lg font-medium text-gray-800">
-                            Instruction
-                          </h4>
-                          <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
-                            The image display is generated using AI using prompt
-                            in the format of Adjective Noun.
-                          </p>
-                          <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
-                            The
-                            <span className="text-green-300"> Green</span> text
-                            display the prompt, the noun is hidden from you.
-                          </p>
-                          <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
-                            Your objective is to guess the Noun used to generate
-                            the image!
-                          </p>
-                          <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
-                            Each of your guess will have a score base on how
-                            close it is to the real word.
-                          </p>
-                          <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
-                            If you need more image hint, click the New Image
-                            Hint Button.
-                          </p>
-                          <p className="mt-2 text-center text-[30px] leading-relaxed text-blue-500">
-                            Have Fun!
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            ) : null}
           </div>
+          {guesses.map((guess: String) => (
+            <p className="z-50 font-semibold text-white">{guess}</p>
+          ))}
           {state.map((result: Result) => (
             <Image
               alt="Next.js Conf photo"
@@ -206,6 +164,51 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
                   25vw"
             />
           ))}
+          {showModal ? (
+            <>
+              <div className="fixed inset-0 z-10 overflow-y-auto">
+                <div
+                  className="fixed inset-0 h-full w-full bg-black opacity-40"
+                  onClick={handleClick}
+                ></div>
+                <div className="flex min-h-screen items-center px-4 py-8">
+                  <div className="relative mx-auto w-full max-w-lg rounded-md bg-white p-4 shadow-lg">
+                    <div className="mt-3 sm:flex">
+                      <div className="mt-2 text-center sm:ml-4 sm:text-left">
+                        <h4 className="text-center text-lg font-medium text-gray-800">
+                          Instruction
+                        </h4>
+                        <p className="mt-2 text-[15px] leading-relaxed text-gray-500">
+                          The image display is generated using AI using prompt
+                          in the format of Adjective Noun.
+                        </p>
+                        <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
+                          The
+                          <span className="text-green-300"> Green</span> text
+                          display the prompt, the noun is hidden from you.
+                        </p>
+                        <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
+                          Your objective is to guess the Noun used to generate
+                          the image!
+                        </p>
+                        <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
+                          Each of your guess will have a score base on how close
+                          it is to the real word.
+                        </p>
+                        <p className="mt-2  text-[15px] leading-relaxed text-gray-500">
+                          If you need more image hint, click the New Image Hint
+                          Button.
+                        </p>
+                        <p className="mt-2 text-center text-[30px] leading-relaxed text-blue-500">
+                          Have Fun!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          ) : null}
         </div>
       </main>
     </>
