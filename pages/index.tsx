@@ -11,6 +11,7 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
   const [state, setState] = useState([]);
   const [load, setLoad] = useState(false);
   const [buttonText, setButtonText] = useState("New Image Hint");
+  const [submitText, setSubmitText] = useState("Submit Guess");
   const [index, setIndex] = useState(0);
   const [noun, setNoun] = useState("");
   const [guesses, setGuesses] = useState([]);
@@ -54,6 +55,7 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
 
   const handleSubmit = async () => {
     if (noun !== "") {
+      setSubmitText("Submitting...");
       const curr = noun.toLowerCase().trim();
       const closeness = await getScore(prompts[index].noun, curr);
       setGuesses((previous) => [
@@ -69,6 +71,7 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
       } else {
         setScore(score - 1000);
       }
+      setSubmitText("Submit Guess");
     }
   };
 
@@ -88,8 +91,8 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
   return (
     <>
       <main className="mx-auto max-w-[1960px] p-4">
-        <div className="columns-1 sm:columns-2 xl:columns-3 2xl:columns-4">
-          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-start overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
+        <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
+          <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-start gap-2 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
             <div className="flex h-60 items-center justify-center">
               <button
                 className="pointer z-10 mt-3 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
@@ -99,10 +102,10 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
               </button>
             </div>
             <Logo />
-            <h2 className="z-50 mb-4 mt-8 text-base font-bold uppercase tracking-widest">
+            <h2 className="z-10 mb-4 mt-8 text-base font-bold uppercase tracking-widest">
               <p>{win}</p>
               {prev !== "" && <p>Previous Prompt : {prev}</p>}
-              <p>Score : {score}</p>
+              <p className="text-yellow-300">Score : {score}</p>
               <p className="text-green-300">
                 {prompts[index].adjective + " " + word}
               </p>
@@ -127,7 +130,7 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
               className="pointer z-10 mt-3 rounded-lg border border-white bg-white px-3 py-2 text-sm font-semibold text-black transition hover:bg-white/10 hover:text-white md:mt-2"
               onClick={handleSubmit}
             >
-              Submit Guess
+              {submitText}
             </button>
             <form
               onSubmit={(e) => e.preventDefault()}
@@ -142,6 +145,9 @@ const Home: NextPage = ({ prompts }: { prompts: Prompt[] }) => {
                 onKeyDown={handleKeyDown}
               />
             </form>
+            {guesses.map((guess: String) => (
+              <p className="z-50 font-semibold text-white">{guess}</p>
+            ))}
             {showModal ? (
               <>
                 <div className="fixed inset-0 z-10 overflow-y-auto">
