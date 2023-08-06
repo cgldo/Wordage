@@ -4,8 +4,8 @@ export default function Logo() {
       <img
         aria-labelledby="conf-logo-title-header"
         role="img"
-        width="300"
-        height="300"
+        width="150"
+        height="150"
         src="/cat.png"
       />
       <title id="conf-logo-title-header">
