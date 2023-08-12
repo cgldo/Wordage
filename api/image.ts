@@ -1,4 +1,5 @@
 import { Prompt, Result } from "../utils/types";
+require('dotenv').config()
 
 /**
  * Send api request to image generator and save the resulting image in the json
@@ -12,11 +13,16 @@ export default async function getImage(req: Prompt, res:Result) {
     res.src = objectURL;
   }
 
+  /**
+   * 
+   * @param data 
+   * @returns 
+   */
  async function query(data) {
 	const response = await fetch(
-		"https://api-inference.huggingface.co/models/cgldo/diffusionclone",
+		process.env.STABLE_DIFFUSION,
 		{
-			headers: { Authorization: "Bearer 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" },
+			headers: { Authorization: process.env.HUGGING_KEY},
 			method: "POST",
 			body: JSON.stringify(data),
 		}

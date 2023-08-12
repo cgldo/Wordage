@@ -1,10 +1,8 @@
-
-import { Prompt } from "../utils/types";
-
 /**
- * Send api request to image generator and save the resulting image in the json
- * @param req store whatever is require to generate the image
- * @param res store the image in json format
+ * Api point for frontend, return semantic closeness of a user guess
+ * @param req a original word
+ * @param guess the user guess
+ * @returns score * 100 to give a estimate percent closeness
  */
 export default async function getScore(req: string, guess: string) {
     const result:number = await checkSemantic({"inputs": {"source_sentence":req, "sentences": [guess]}, options:{"wait_for_model":true}})
@@ -12,11 +10,16 @@ export default async function getScore(req: string, guess: string) {
     return Math.round(result * 100);
   }
 
+  /**
+   * Send a query to a Model for checking word closeness
+   * @param data data to send to model for checking
+   * @returns number from 0-1 representing closeness
+   */
 async function checkSemantic(data) {
 	const response = await fetch(
-		"https://api-inference.huggingface.co/models/cgldo/semanticClone",
+		process.env.SEMANTIC,
 		{
-			headers: { Authorization: "Bearer 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" },
+			headers: { Authorization: process.env.HUGGING_KEY },
 			method: "POST",
 			body: JSON.stringify(data),
 		}

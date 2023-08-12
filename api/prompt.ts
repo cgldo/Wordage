@@ -1,7 +1,8 @@
 import { Prompt } from "../utils/types";
-
 const { MongoClient } = require('mongodb');
-const uri = "mongodb+srv://bi:hTv3wE3T6fifztLx@biadd.wvxnwxq.mongodb.net/?retryWrites=true&w=majority";
+require('dotenv').config()
+
+const uri = process.env.MONGO;
 
 /**
  * 
@@ -9,14 +10,12 @@ const uri = "mongodb+srv://bi:hTv3wE3T6fifztLx@biadd.wvxnwxq.mongodb.net/?retryW
  */
 export default async function getPrompt() {
     return await query();
-    //console.log(prompt);
   }
 
-  /**
-   * 
-   * @param prompt 
-   * @returns 
-   */
+/**
+ * Use to generate x random noun and adjective pairs from the database
+ * @returns 
+ */
   export async function query() {
       const prompts: Prompt[] = []
       const client = new MongoClient(uri);
@@ -45,7 +44,6 @@ export default async function getPrompt() {
             const adj = adjectives[index];
             prompts.push({noun:noun, adjective:adj});
           });
-          //console.log(prompts)
           return prompts;
       }
   }
